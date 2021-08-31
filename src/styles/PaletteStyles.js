@@ -1,5 +1,3 @@
-import chroma from "chroma-js";
-
 const styles = {
   palette: {
     height: "100vh",
