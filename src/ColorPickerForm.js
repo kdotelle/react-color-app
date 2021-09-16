@@ -1,23 +1,24 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
-import PaletteFormNav from "./PaletteFormNav";
-import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from "@material-ui/core/Button";
-import DraggableColorList from "./DraggableColorList";
 import { ChromePicker } from "react-color";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { arrayMove } from "react-sortable-hoc";
 
+const styles = {
+  picker: {
+    marginTop: "2rem",
+  },
+  addColor: {
+    width: "100%",
+    padding: "1rem",
+    marginTop: "1rem",
+    fontSize: "2rem",
+  },
+  colorNameInput: {
+    width: "100%",
+    height: "70px",
+  },
+};
 class ColorPickerForm extends Component {
   constructor(props) {
     super(props);
@@ -55,21 +56,29 @@ class ColorPickerForm extends Component {
       name: this.state.newColorName,
     };
     this.props.addNewColor(newColor);
+    this.setState({
+      newColorName: "",
+    });
   }
   render() {
-    const { paletteIsFull } = this.props;
+    const { paletteIsFull, classes } = this.props;
     const { currentColor, newColorName } = this.state;
     return (
       <div>
         <ChromePicker
           color={currentColor}
           onChangeComplete={this.updateColor}
+          className={classes.picker}
+          width="100%"
         />
         <ValidatorForm onSubmit={this.handleSubmit}>
           <TextValidator
-            label="New Color Name"
+            label="Color Name"
+            className={classes.colorNameInput}
             value={newColorName}
             name="newColorName"
+            variant="filled"
+            margin="normal"
             onChange={this.handleChange}
             validators={["required", "isColorUnique", "isColorNameUnique"]}
             errorMessages={[
@@ -81,6 +90,7 @@ class ColorPickerForm extends Component {
           <Button
             variant="contained"
             color="primary"
+            className={classes.addColor}
             style={{
               backgroundColor: paletteIsFull ? "grey" : currentColor,
             }}
@@ -95,4 +105,4 @@ class ColorPickerForm extends Component {
   }
 }
 
-export default ColorPickerForm;
+export default withStyles(styles)(ColorPickerForm);
