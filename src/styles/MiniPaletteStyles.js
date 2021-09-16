@@ -5,7 +5,7 @@ const styles = {
     border: "1px solid black",
     padding: "0.5rem",
     position: "relative",
-    overflow: "hidden",
+    //overflow: "hidden",
     "&:hover": {
       cursor: "pointer",
     },
