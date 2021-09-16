@@ -6,6 +6,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
 
 class PaletteMetaForm extends Component {
   constructor(props) {
@@ -42,14 +44,16 @@ class PaletteMetaForm extends Component {
 
   render() {
     const { open, newPaletteName } = this.state;
+    const { handleSubmit, hideForm } = this.props;
     return (
-      <Dialog open={open} onClose={this.handleClose}>
+      <Dialog open={open} onClose={hideForm}>
         <DialogTitle>Choose A Palette Name</DialogTitle>
-        <ValidatorForm onSubmit={() => this.props.handleSubmit(newPaletteName)}>
+        <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)}>
           <DialogContent>
             <DialogContentText>
               Please enter a unique name for your new palette.
             </DialogContentText>
+            <Picker />
             <TextValidator
               label="Palette Name"
               value={newPaletteName}
@@ -62,7 +66,7 @@ class PaletteMetaForm extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose}>Cancel</Button>
+            <Button onClick={hideForm}>Cancel</Button>
             <Button variant="contained" color="primary" type="submit">
               {" "}
               Save Palette{" "}
