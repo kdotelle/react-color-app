@@ -1,14 +1,17 @@
+//3rd party or vendor JavaScript
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+//my own componenets
 import Palette from "./Palette";
 import PaletteList from "./PaletteList";
 import SingleColorPalette from "./SingleColorPalette";
-import seedColors from "./seedColors";
 import NewPaletteForm from "./NewPaletteForm";
-import { generatePalette } from "./colorHelpers";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Page from "./Page";
 import "./styles/Page.css";
+//helper functions
+import { generatePalette } from "./colorHelpers";
+import seedColors from "./seedColors";
 
 class App extends Component {
   constructor(props) {
